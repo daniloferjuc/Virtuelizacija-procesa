@@ -1,0 +1,10 @@
+C:\Users\User\OneDrive\Desktop\Virtuelizacija-Procesa-Projekat\KancelarijskiSenzor\Service\bin\Debug\Service.exe.config
+C:\Users\User\OneDrive\Desktop\Virtuelizacija-Procesa-Projekat\KancelarijskiSenzor\Service\bin\Debug\Service.exe
+C:\Users\User\OneDrive\Desktop\Virtuelizacija-Procesa-Projekat\KancelarijskiSenzor\Service\bin\Debug\Service.pdb
+C:\Users\User\OneDrive\Desktop\Virtuelizacija-Procesa-Projekat\KancelarijskiSenzor\Service\bin\Debug\Common.dll
+C:\Users\User\OneDrive\Desktop\Virtuelizacija-Procesa-Projekat\KancelarijskiSenzor\Service\bin\Debug\Common.pdb
+C:\Users\User\OneDrive\Desktop\Virtuelizacija-Procesa-Projekat\KancelarijskiSenzor\Service\obj\Debug\Service.csproj.AssemblyReference.cache
+C:\Users\User\OneDrive\Desktop\Virtuelizacija-Procesa-Projekat\KancelarijskiSenzor\Service\obj\Debug\Service.csproj.CoreCompileInputs.cache
+C:\Users\User\OneDrive\Desktop\Virtuelizacija-Procesa-Projekat\KancelarijskiSenzor\Service\obj\Debug\Service.csproj.Up2Date
+C:\Users\User\OneDrive\Desktop\Virtuelizacija-Procesa-Projekat\KancelarijskiSenzor\Service\obj\Debug\Service.exe
+C:\Users\User\OneDrive\Desktop\Virtuelizacija-Procesa-Projekat\KancelarijskiSenzor\Service\obj\Debug\Service.pdb

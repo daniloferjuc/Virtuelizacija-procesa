@@ -1,0 +1,6 @@
+C:\Users\User\OneDrive\Desktop\Virtuelizacija-Procesa-Projekat\KancelarijskiSenzor\Common\bin\Debug\Common.dll
+C:\Users\User\OneDrive\Desktop\Virtuelizacija-Procesa-Projekat\KancelarijskiSenzor\Common\bin\Debug\Common.pdb
+C:\Users\User\OneDrive\Desktop\Virtuelizacija-Procesa-Projekat\KancelarijskiSenzor\Common\obj\Debug\Common.csproj.AssemblyReference.cache
+C:\Users\User\OneDrive\Desktop\Virtuelizacija-Procesa-Projekat\KancelarijskiSenzor\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+C:\Users\User\OneDrive\Desktop\Virtuelizacija-Procesa-Projekat\KancelarijskiSenzor\Common\obj\Debug\Common.dll
+C:\Users\User\OneDrive\Desktop\Virtuelizacija-Procesa-Projekat\KancelarijskiSenzor\Common\obj\Debug\Common.pdb
