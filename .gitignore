@@ -427,3 +427,5 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+# Dozvoli AirPi dataset
+!Client/Data/AirPi.csv
