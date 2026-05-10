@@ -1,5 +1,6 @@
 ﻿using Common;
 using System;
+using System.Configuration;
 using System.ServiceModel;
 
 namespace Service
@@ -7,6 +8,7 @@ namespace Service
     public class SensorService : ISensorService
     {
         private SessionMeta currentSession;
+        private SessionFileWriter fileWriter;
 
         public Ack StartSession(SessionMeta meta)
         {
@@ -28,8 +30,13 @@ namespace Service
                     new ValidationFault("SessionId je obavezan."));
             }
 
+            string dataPath = ConfigurationManager.AppSettings["DataPath"] ?? "Data";
+
             currentSession = meta;
+            fileWriter = new SessionFileWriter(meta.SessionId, dataPath);
+
             Console.WriteLine($"[Service] Otvorena sesija: {meta}");
+            Console.WriteLine($"[Service] Fajlovi spremni u {dataPath}");
             return new Ack(AckStatus.IN_PROGRESS, $"Sesija {meta.SessionId} otvorena.");
         }
 
@@ -40,8 +47,22 @@ namespace Service
                 return new Ack(AckStatus.REJECTED, "Sesija nije otvorena.");
             }
 
-            ValidateSample(sample);
+            try
+            {
+                ValidateSample(sample);
+            }
+            catch (FaultException<ValidationFault> ex)
+            {
+                fileWriter.WriteReject(sample, ex.Detail.Message);
+                throw;
+            }
+            catch (FaultException<DataFormatFault> ex)
+            {
+                fileWriter.WriteReject(sample, ex.Detail.Message);
+                throw;
+            }
 
+            fileWriter.WriteMeasurement(sample);
             Console.WriteLine($"[Service] Prijem uzorka: {sample}");
             return new Ack(AckStatus.IN_PROGRESS, "Sample primljen.");
         }
@@ -54,8 +75,15 @@ namespace Service
             }
 
             string sessionId = currentSession.SessionId;
+
+            if (fileWriter != null)
+            {
+                fileWriter.Dispose();
+                fileWriter = null;
+            }
+
             currentSession = null;
-            Console.WriteLine($"[Service] Sesija {sessionId} zavrsena.");
+            Console.WriteLine($"[Service] Sesija {sessionId} zavrsena, fajlovi zatvoreni.");
             return new Ack(AckStatus.COMPLETED, $"Sesija {sessionId} zavrsena.");
         }
 
