@@ -5,7 +5,7 @@ using System.IO;
 
 namespace Service
 {
-    class SessionFileWriter : IDisposable
+    public class SessionFileWriter : IDisposable
     {
         private StreamWriter measurementsWriter;
         private StreamWriter rejectsWriter;
@@ -38,12 +38,15 @@ namespace Service
 
         ~SessionFileWriter()
         {
+            
+            Console.WriteLine($"[SessionFileWriter] Finalizer pozvan za sesiju {sessionId} (Dispose nije eksplicitno pozvan!)");
             Dispose(false);
         }
 
         public void Dispose()
         {
             Dispose(true);
+            
             GC.SuppressFinalize(this);
         }
 
@@ -53,6 +56,9 @@ namespace Service
             {
                 if (disposing)
                 {
+                    
+                    Console.WriteLine($"[SessionFileWriter] Dispose(disposing=true) - oslobadjam managed resurse za sesiju {sessionId}.");
+
                     if (measurementsWriter != null)
                     {
                         measurementsWriter.Dispose();
@@ -63,6 +69,10 @@ namespace Service
                         rejectsWriter.Dispose();
                         rejectsWriter = null;
                     }
+                }
+                else
+                {
+                    Console.WriteLine($"[SessionFileWriter] Dispose(disposing=false) - finalizer cisti unmanaged resurse za sesiju {sessionId}.");
                 }
                 disposed = true;
             }

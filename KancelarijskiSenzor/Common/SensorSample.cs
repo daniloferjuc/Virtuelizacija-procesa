@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Runtime.Serialization;
 
 namespace Common
@@ -34,8 +35,9 @@ namespace Common
 
         public override string ToString()
         {
-            return $"[{DateTime:yyyy-MM-dd HH:mm:ss}] Volume={Volume:F2}, " +
-                   $"CO={CO:F2}, NO2={NO2:F2}, Pressure={Pressure:F2}";
+            return string.Format(CultureInfo.InvariantCulture,
+                "[{0:yyyy-MM-dd HH:mm:ss}] Volume={1:F2}, CO={2:F2}, NO2={3:F2}, Pressure={4:F2}",
+                DateTime, Volume, CO, NO2, Pressure);
         }
     }
 }

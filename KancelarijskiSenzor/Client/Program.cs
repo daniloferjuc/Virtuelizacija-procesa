@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.ServiceModel;
+using System.Threading;
 
 namespace Client
 {
@@ -13,6 +14,13 @@ namespace Client
             string csvPath = ConfigurationManager.AppSettings["DatasetPath"];
             string logPath = ConfigurationManager.AppSettings["LogPath"];
             int rowLimit = int.Parse(ConfigurationManager.AppSettings["RowLimit"]);
+          
+            int sendDelayMs = 0;
+            string delayCfg = ConfigurationManager.AppSettings["SendDelayMs"];
+            if (!string.IsNullOrWhiteSpace(delayCfg))
+            {
+                int.TryParse(delayCfg, out sendDelayMs);
+            }
 
             Console.WriteLine("==========================================");
             Console.WriteLine(" Kancelarijski senzor - Klijent");
@@ -69,6 +77,11 @@ namespace Client
                     {
                         Console.WriteLine($"[{i + 1,3}] [DataFormatFault] {ex.Detail.Message}");
                         rejected++;
+                    }
+
+                    if (sendDelayMs > 0)
+                    {
+                        Thread.Sleep(sendDelayMs);
                     }
                 }
 

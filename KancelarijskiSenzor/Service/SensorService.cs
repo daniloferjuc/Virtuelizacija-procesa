@@ -5,10 +5,15 @@ using System.ServiceModel;
 
 namespace Service
 {
-    public class SensorService : ISensorService
+    
+    // Ako klijent regularno zavrsi (EndSession) ili abort-uje vezu, WCF poziva Dispose() na servisu.
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession,
+                     ConcurrencyMode = ConcurrencyMode.Single)]
+    public class SensorService : ISensorService, IDisposable
     {
         private SessionMeta currentSession;
         private SessionFileWriter fileWriter;
+        private bool disposed = false;
 
         public Ack StartSession(SessionMeta meta)
         {
@@ -148,6 +153,26 @@ namespace Service
                 throw new FaultException<ValidationFault>(
                     new ValidationFault($"NO2 mora biti >= 0, dobijeno: {sample.NO2}"));
             }
+        }
+
+        // Dispose se poziva automatski od strane WCF-a kada se sesija zavrsi
+        //   - regularno 
+        //   - abortom 
+       
+        public void Dispose()
+        {
+            if (disposed) return;
+
+            if (fileWriter != null)
+            {
+                string sessionId = currentSession != null ? currentSession.SessionId : "unknown";
+                Console.WriteLine($"[Service] WCF zatvara session instancu. Cistim resurse za sesiju {sessionId}.");
+                fileWriter.Dispose();
+                fileWriter = null;
+            }
+
+            currentSession = null;
+            disposed = true;
         }
     }
 }
