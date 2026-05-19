@@ -73,6 +73,19 @@ namespace Client
                 }
 
                 LogLine($"[INFO] Ucitano {loaded} redova, odbijeno {rejected}.");
+
+                // Logovanje redova visak
+                int extraCount = 0;
+                while (!reader.EndOfStream)
+                {
+                    reader.ReadLine();
+                    extraCount++;
+                }
+
+                if (extraCount > 0)
+                {
+                    LogLine($"[INFO] Preskoceno {extraCount} redova visak (limit je {rowLimit}).");
+                }
             }
 
             return samples;
